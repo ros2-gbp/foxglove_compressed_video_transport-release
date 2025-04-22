@@ -1,1 +1,1 @@
-{"base": "dfbd2b8", "parent": "debian/rolling/foxglove_compressed_video_transport", "previous": "5519028", "trim": "", "trimbase": ""}
+{"base": "5cc6881a2493", "parent": "debian/kilted/foxglove_compressed_video_transport", "previous": "53dd4a84027a", "trim": "", "trimbase": ""}
