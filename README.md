@@ -1,3 +1,26 @@
+## foxglove_compressed_video_transport (rolling) - 3.0.0-1
+
+The packages in the `foxglove_compressed_video_transport` repository were released into the `rolling` distro by running `/usr/bin/bloom-release --rosdistro rolling foxglove_compressed_video_transport` on `Fri, 08 Aug 2025 11:59:59 -0000`
+
+The `foxglove_compressed_video_transport` package was released.
+
+Version of package(s) in repository `foxglove_compressed_video_transport`:
+
+- upstream repository: https://github.com/ros-misc-utilities/foxglove_compressed_video_transport.git
+- release repository: https://github.com/ros2-gbp/foxglove_compressed_video_transport-release.git
+- rosdistro version: `1.0.3-1`
+- old version: `1.0.3-1`
+- new version: `3.0.0-1`
+
+Versions of tools used:
+
+- bloom version: `0.13.0`
+- catkin_pkg version: `1.0.0`
+- rosdep version: `0.26.0`
+- rosdistro version: `1.0.1`
+- vcstools version: `0.1.42`
+
+
 ## foxglove_compressed_video_transport (rolling) - 1.0.3-1
 
 The packages in the `foxglove_compressed_video_transport` repository were released into the `rolling` distro by running `/usr/bin/bloom-release --rosdistro rolling --edit-track foxglove_compressed_video_transport` on `Mon, 26 May 2025 20:27:49 -0000`
