@@ -1,0 +1,73 @@
+ros-rolling-foxglove-compressed-video-transport (3.0.3-1resolute) resolute; urgency=high
+
+  * bump cmake version and try to fix gtest on humble
+  * remove repos file
+  * added message_type to plugins xml file
+  * use nodeinterface also for publishing transport
+  * default gop_size to 1 and warn if not set
+  * use correct img transp version 5.0.0
+  * Contributors: Bernd Pfrommer
+
+ -- "Bernd Pfrommer" <bernd.pfrommer@gmail.com>  Sun, 14 Jun 2026 22:00:00 -0000
+
+ros-rolling-foxglove-compressed-video-transport (3.0.2-1resolute) resolute; urgency=high
+
+  * support new image transport node interface
+  * Contributors: Bernd Pfrommer
+
+ -- "Bernd Pfrommer" <bernd.pfrommer@gmail.com>  Sun, 31 Aug 2025 22:00:00 -0000
+
+ros-rolling-foxglove-compressed-video-transport (3.0.1-1resolute) resolute; urgency=high
+
+  * fix param dump bug by changing decoder param sep from . to _
+  * Contributors: Bernd Pfrommer
+
+ -- "Bernd Pfrommer" <bernd.pfrommer@gmail.com>  Sun, 24 Aug 2025 22:00:00 -0000
+
+ros-rolling-foxglove-compressed-video-transport (3.0.0-1resolute) resolute; urgency=high
+
+  * adjust to new image_transport and encoder/decoder API, added tests
+    * adapt to new ffmpeg_encoder_decoder API
+    * adjustments for new image_transport API
+    * added tests
+    * rename "map" parameter to "decoders"
+    * parameters no longer have "." prefix
+    * deal with humble brokenness where base_topic is not prefixed with namespace, but namespace is removed
+    * package splitting functions into utilities file
+  * Contributors: Bernd Pfrommer
+
+ -- "Bernd Pfrommer" <bernd.pfrommer@gmail.com>  Thu, 07 Aug 2025 22:00:00 -0000
+
+ros-rolling-foxglove-compressed-video-transport (1.0.3-1resolute) resolute; urgency=high
+
+  * avoid ament_target_dependencies
+  * Add Constant Rate Factor,  Co-authored-by: Angsa Deployment Team <mailto:team@angsa-robotics.com>
+  * Update README.md
+  * Contributors: Bernd Pfrommer, Tony Najjar
+
+ -- "Bernd Pfrommer" <bernd.pfrommer@gmail.com>  Sun, 25 May 2025 22:00:00 -0000
+
+ros-rolling-foxglove-compressed-video-transport (1.0.2-1resolute) resolute; urgency=high
+
+  * Merge branch 'master' into release
+  * Fix segfault: the publish_fn address passed to publish() cannot be cached!
+  * Contributors: Michal Sojka
+
+ -- "Bernd Pfrommer" <bernd.pfrommer@gmail.com>  Sat, 29 Mar 2025 23:00:00 -0000
+
+ros-rolling-foxglove-compressed-video-transport (1.0.1-1resolute) resolute; urgency=high
+
+  * Fill empty message fields (#1 <https://github.com/ros-misc-utilities/foxglove_compressed_video_transport/issues/1>)
+    * Fix missing timestamp and frame_id in subscriber and publisher
+  * Contributors: Bernd Pfrommer, eLEcTRiCZiTy
+
+ -- "Bernd Pfrommer" <bernd.pfrommer@gmail.com>  Sun, 17 Nov 2024 23:00:00 -0000
+
+ros-rolling-foxglove-compressed-video-transport (1.0.0-1resolute) resolute; urgency=high
+
+  * initial commit
+  * Contributors: Bernd Pfrommer
+
+ -- "Bernd Pfrommer" <bernd.pfrommer@gmail.com>  Sun, 15 Sep 2024 22:00:00 -0000
+
+
