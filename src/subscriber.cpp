@@ -43,33 +43,22 @@ void Subscriber::shutdown()
 
 void Subscriber::frameReady(const ImageConstPtr & img, bool) const { (*userCallback_)(img); }
 
-#ifdef IMAGE_TRANSPORT_API_V1
 void Subscriber::subscribeImpl(
-  rclcpp::Node * node, const std::string & base_topic, const Callback & callback,
-  QoSType custom_qos)
+  NodeType node, const std::string & base_topic, const Callback & callback, QoSType custom_qos,
+  rclcpp::SubscriptionOptions opt)
 {
   initialize(node, base_topic);
+#ifdef IMAGE_TRANSPORT_NEEDS_PUBLISHEROPTIONS
   image_transport::SimpleSubscriberPlugin<CompressedVideo>::subscribeImpl(
-    node, base_topic, callback, custom_qos);
-}
+    node, base_topic, callback, custom_qos, opt);
 #else
-void Subscriber::subscribeImpl(
-  rclcpp::Node * node, const std::string & base_topic, const Callback & callback,
-  QoSType custom_qos, rclcpp::SubscriptionOptions opt)
-{
-  initialize(node, base_topic);
-#ifdef IMAGE_TRANSPORT_API_V2
   (void)opt;  // to suppress compiler warning
   image_transport::SimpleSubscriberPlugin<CompressedVideo>::subscribeImpl(
     node, base_topic, callback, custom_qos);
-#else
-  image_transport::SimpleSubscriberPlugin<CompressedVideo>::subscribeImpl(
-    node, base_topic, callback, custom_qos, opt);
 #endif
 }
-#endif
 
-void Subscriber::initialize(rclcpp::Node * node, const std::string & base_topic_o)
+void Subscriber::initialize(NodeType node, const std::string & base_topic_o)
 {
   node_ = node;
 #ifdef IMAGE_TRANSPORT_RESOLVES_BASE_TOPIC
@@ -78,7 +67,11 @@ void Subscriber::initialize(rclcpp::Node * node, const std::string & base_topic_
   const std::string base_topic =
     node_->get_node_topics_interface()->resolve_topic_name(base_topic_o);
 #endif
-  uint ns_len = node_->get_effective_namespace().length();
+#ifdef IMAGE_TRANSPORT_USE_NODEINTERFACE
+  uint ns_len = std::string(node.get_node_base_interface()->get_namespace()).length();
+#else
+  uint ns_len = node->get_effective_namespace().length();
+#endif
   // if a namespace is given (ns_len > 1), then strip one more
   // character to avoid a leading "/" that will then become a "."
   uint ns_prefix_len = ns_len > 1 ? ns_len + 1 : ns_len;
@@ -99,11 +92,13 @@ std::string Subscriber::getDecodersFromMap(const std::string & encoding)
       p_name += (j == 0 ? "." : "_") + x[j];
     }
     ParameterDefinition pdef{
-      PValue(""), PDescriptor()
-                    .set__name("decoders" + p_name)
-                    .set__type(rcl_interfaces::msg::ParameterType::PARAMETER_STRING)
-                    .set__description("decoders for encoding: " + p_name)
-                    .set__read_only(false)};
+      PValue(""),
+      PDescriptor()
+        .set__name("decoders" + p_name)
+        .set__type(rcl_interfaces::msg::ParameterType::PARAMETER_STRING)
+        .set__description("decoders for encoding: " + p_name)
+        .set__read_only(false),
+      ""};
     decoders = pdef.declare(node_, paramNamespace_).get<std::string>();
     if (!decoders.empty()) {
       break;
