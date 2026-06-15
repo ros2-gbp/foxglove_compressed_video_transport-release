@@ -55,7 +55,11 @@ public:
   // since it only reads the parameters when the plugin is loaded
   void initialize()
   {
+#ifdef IMAGE_TRANSPORT_USE_NODEINTERFACE
+    image_transport_ = std::make_shared<ImageTransport>(image_transport::RequiredInterfaces(*this));
+#else
     image_transport_ = std::make_shared<ImageTransport>(std::shared_ptr<Node>(this, [](auto *) {}));
+#endif
     pub_ =
       std::make_shared<image_transport::Publisher>(image_transport_->advertise("camera/image", 1));
   }
@@ -120,9 +124,13 @@ public:
   }
   void initialize()
   {
-    image_transport::TransportHints hints(this);
     sub_ = std::make_shared<image_transport::Subscriber>(image_transport::create_subscription(
-      this, "camera/image", std::bind(&TestSubscriber::imageCallback, this, std::placeholders::_1),
+#ifdef IMAGE_TRANSPORT_USE_NODEINTERFACE
+      *this,
+#else
+      this,
+#endif
+      "camera/image", std::bind(&TestSubscriber::imageCallback, this, std::placeholders::_1),
       "foxglove", convert_profile(rmw_qos_profile_default)));
   }
   void shutDown()
